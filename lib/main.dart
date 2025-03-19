@@ -1,7 +1,8 @@
-import 'package:all_star_trivia_316_b/core/trivia_btm.dart';
-import 'package:all_star_trivia_316_b/core/trivia_onb.dart';
+import 'dart:async';
+import 'package:all_star_trivia_316_b/all_starfdf.dart';
 import 'package:all_star_trivia_316_b/goals/achiv/logic/achiv_hive_model.dart';
 import 'package:all_star_trivia_316_b/goals/logic/goals_hive_model.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,11 +20,6 @@ void main() async {
   ////////////////
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool firstCheck = prefs.getBool('asdafhtrtjyjtyj') ?? true;
-  Widget homePage = firstCheck
-      ? const TriviaOnbScreen()
-      : const TriviaDownBar(
-          indexScr: 0,
-        );
 
   if (firstCheck) {
     await Future.delayed(const Duration(seconds: 2));
@@ -39,7 +35,33 @@ void main() async {
     await prefs.setBool('asdafhtrtjyjtyj', false);
   }
 
-  runApp(MyApp(homeScreen: homePage));
+  Widget posjkddAllStarffdff = const Scaffold(backgroundColor: Colors.black);
+  late StreamSubscription<List<ConnectivityResult>> sujdssjkddAllStarffdff;
+  sujdssjkddAllStarffdff = Connectivity()
+      .onConnectivityChanged
+      .listen((List<ConnectivityResult> reAllStarffdffsult) async {
+    if (reAllStarffdffsult.any((rAllStarffdffesult) =>
+        rAllStarffdffesult != ConnectivityResult.none)) {
+      posjkddAllStarffdff = await sgetsjAllStarffdff();
+
+      runApp(
+        MyApp(homeScreen: posjkddAllStarffdff),
+      );
+
+      sujdssjkddAllStarffdff.cancel();
+    } else {
+      runApp(
+        const MyApp(
+          homeScreen: Scaffold(
+            backgroundColor: Colors.black,
+            body: Center(
+              child: CupertinoActivityIndicator(color: Colors.white),
+            ),
+          ),
+        ),
+      );
+    }
+  });
 }
 
 class MyApp extends StatelessWidget {
